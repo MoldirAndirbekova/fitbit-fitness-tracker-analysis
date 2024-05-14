@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: hourly_data
+    description: "All data which was joined (hourly calories, steps, intensities)"
+    columns:
+      - name: id
+        data_type: int64
+        description: "Id of users. It is unique only when combined with the activity hour."
+        tests:
+          - not_null:
+              severity: warn 
+
+      - name: activityhour
+        data_type: timestamp
+        description: "The hour during which the steps were recorded. For example: 2016-04-13 00:00 UTC."
+
+      - name: steptotal
+        data_type: int64
+        description: "The number of steps walked during each hour."
+
+      - name: totalintensity
+        data_type: int64
+        description: "The total intensity recorded during each hour."
+
+      - name: averageintensity
+        data_type: float64
+        description: "The average intensity recorded during each hour."
+        
+      - name: calories
+        data_type: int64
+        description: "The total calories burned during each hour."
