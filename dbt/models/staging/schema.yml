@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: staging
+    database: useful-monitor-415110
+    schema: health_analysis_dataset
+
+    tables:
+      - name: hourly_calories
+      - name: hourly_intensities
+      - name: hourly_steps
+
+
+
+
+
