@@ -6,7 +6,7 @@ models:
     columns:
       - name: id
         data_type: int64
-        description: "Id of users. It is unique only when combined with the activity hour. UPD for test"
+        description: "Id of users. It is unique only when combined with the activity hour. UPD"
         tests:
           - not_null:
               severity: warn 
