@@ -8,7 +8,7 @@ Data sources:
 1) https://www.kaggle.com/datasets/arashnic/fitbit
 2) https://github.com/MoldirAndirbekova/dataset
 3) https://github.com/timalthoff/activityinequality/tree/master/data
-4) https://ourworldindata.org/obesity
+4) https://ourworldindata.org/obesity   
 
 # Used Technologies
 - Terraform - all infrastructure code setup 
@@ -23,3 +23,7 @@ Data sources:
 - dbt - for the transformation of raw data, for testing and documentation;
 - Google Looker studio - for visualizations.
 
+# Visualization
+![image](https://github.com/MoldirAndirbekova/health-data-analysis/assets/129284147/14a5c114-4eeb-421c-92dc-002f813b54b8)
+
+Presentation link: https://www.canva.com/design/DAGFSFLzgqA/7dHQsxHkASgbFXs-pCO3EQ/edit
