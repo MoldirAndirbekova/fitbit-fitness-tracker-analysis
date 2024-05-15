@@ -1,0 +1,142 @@
+SELECT
+    dc.ActivityDay,
+    ROUND(AVG(dc.Calories), 2) AS avg_calories,
+    ROUND(AVG(di.SedentaryMinutes), 2) AS avg_sedentary_minutes,
+    ROUND(AVG(di.LightlyActiveMinutes), 2) AS avg_lightly_active_minutes,
+    ROUND(AVG(di.FairlyActiveMinutes), 2) AS avg_fairly_active_minutes,
+    ROUND(AVG(di.VeryActiveMinutes), 2) AS avg_very_active_minutes
+FROM
+    health_analysis_dataset.daily_calories dc
+JOIN
+    health_analysis_dataset.daily_intensities di 
+ON
+    dc.Id = di.Id AND dc.ActivityDay = di.ActivityDay
+GROUP BY
+    dc.ActivityDay
+ORDER BY
+    dc.ActivityDay;
+
+который может дать представление о бизнесе, анализируя тенденции ежедневного уровня активности и расхода калорий с течением времени. Этот запрос рассчитывает среднее количество сожженных калорий за день и среднее время, проведенное при различных уровнях активности за каждый месяц, что позволяет выявить сезонные тенденции или долгосрочные закономерности
+
+
+
+SELECT
+    country,
+    steps_mean,
+    steps_male_mean,
+    steps_female_mean,
+    gender_gap__m_f_,
+    gender_gap__m_f__m
+FROM
+    country_health.gender_external_countries_table
+WHERE
+    ABS(gender_gap__m_f_) > 1000
+ORDER BY
+    ABS(gender_gap__m_f_) DESC;
+
+Этот запрос даст вам набор результатов стран с значительными различиями в среднем количестве шагов между мужчинами и женщинами, где абсолютная разница между средним количеством шагов у мужчин и женщин превышает 1000.
+
+
+
+
+
+SELECT
+    dc.ActivityDay,
+    ROUND(SUM(di.SedentaryActiveDistance), 2) AS total_sedentary_distance,
+    ROUND(SUM(di.LightActiveDistance), 2) AS total_light_distance,
+    ROUND(SUM(di.ModeratelyActiveDistance), 2) AS total_moderate_distance,
+    ROUND(SUM(di.VeryActiveDistance), 2) AS total_very_active_distance,
+    SUM(dc.Calories) AS total_calories
+FROM
+    health_analysis_dataset.daily_calories dc
+JOIN
+    health_analysis_dataset.daily_intensities di 
+ON
+    dc.Id = di.Id AND dc.ActivityDay = di.ActivityDay
+GROUP BY
+    dc.ActivityDay
+ORDER BY
+    dc.ActivityDay;
+
+Этот запрос вычисляет суммарные расстояния для различных уровней активности и суммарное количество сожженных калорий для каждого дня в вашем наборе данных health_analysis_dataset. Результаты сгруппированы по ActivityDay и упорядочены по этому же столбцу.
+
+
+
+
+WITH lagged_values AS (
+    SELECT
+        year,
+        sbp__deaths,
+        LAG(sbp__deaths) OVER (ORDER BY year) AS lagged_sbp_deaths
+    FROM
+        obesity_analysis_dataset.deaths_by_risk_factor
+    WHERE
+        entity = 'South Asia'  -- Filter by entity (assuming it represents regions)
+        AND year BETWEEN 2010 AND 2020  -- Filter by year range
+)
+SELECT
+    year,
+    'sbp__deaths' AS risk_factor,
+    CASE
+        WHEN lagged_sbp_deaths != 0 THEN
+            ((sbp__deaths - lagged_sbp_deaths) / lagged_sbp_deaths) * 100
+        ELSE
+            NULL  -- Avoid division by zero error
+    END AS sbp_percentage_change
+FROM
+    lagged_values
+ORDER BY
+    year;
+
+
+Этот запрос использует обработку оконных функций для вычисления процентного изменения по смертям от плохого питания (SBP) в регионе Южной Азии с течением времени. Он предполагает наличие набора данных obesity_analysis_dataset.deaths_by_risk_factor, фильтрует данные по региону "South Asia" и годам с 2010 по 2020.
+
+
+
+SELECT
+    year,
+    SUM(sbp__deaths) AS sbp_deaths,
+    SUM(sodium__deaths) AS sodium_deaths,
+    SUM(alcohol__deaths) AS alcohol_deaths
+FROM
+    obesity_analysis_dataset.deaths_by_risk_factor
+WHERE
+    year BETWEEN 2000 AND 2020  -- Specify the range of years to analyze
+GROUP BY
+    year
+ORDER BY
+    year;
+
+Этот запрос вычисляет суммарное количество смертей по различным факторам риска (SBP, натрий, алкоголь) за период с 2000 по 2020 год в наборе данных obesity_analysis_dataset.deaths_by_risk_factor. Результаты группируются по годам и упорядочиваются по годам.
+
+
+
+
+SELECT
+    entity,
+    EXTRACT(YEAR FROM year) AS year,
+    AVG(high_bmi_death_rate_per_100k_both_sexes_age_std) AS avg_high_bmi_death_rate_per_100k
+FROM
+    obesity_analysis_dataset.death_rate_obesity
+GROUP BY
+    entity, EXTRACT(YEAR FROM year)
+ORDER BY
+    entity, year;
+
+Этот запрос извлекает среднюю смертность от высокого ИМТ (индекса массы тела) на 100 тысяч человек обоего пола и всех возрастов для каждой сущности (страны или региона) в наборе данных obesity_analysis_dataset.death_rate_obesity. Результаты группируются по сущности и году, а затем упорядочиваются по сущности и году.
+
+
+
+
+SELECT
+    country,
+    AVG(steps) AS avg_steps
+FROM
+    country_health.external_countries_by_steps_table
+GROUP BY
+    country
+ORDER BY
+    avg_steps DESC;
+
+
+Этот запрос вычисляет среднее количество шагов (avg_steps) для каждой страны из таблицы external_countries_by_steps_table в наборе данных country_health. Результаты группируются по стране и упорядочиваются по убыванию среднего количества шагов.
