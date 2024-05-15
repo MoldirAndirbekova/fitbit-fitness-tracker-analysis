@@ -24,6 +24,6 @@ Data sources:
 - Google Looker studio - for visualizations.
 
 # Visualization
-![image](https://github.com/MoldirAndirbekova/health-data-analysis/assets/129284147/14a5c114-4eeb-421c-92dc-002f813b54b8)
+![image](https://github.com/MoldirAndirbekova/health-data-analysis/assets/129284147/d7aeb2f2-3f41-41f6-8bd9-89dcb5ef4a1e)
 
 Presentation link: https://www.canva.com/design/DAGFSFLzgqA/7dHQsxHkASgbFXs-pCO3EQ/edit
