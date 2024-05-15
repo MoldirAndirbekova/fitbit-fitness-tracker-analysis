@@ -1,4 +1,4 @@
-# Determine factors which has major impact on physical activeness of people by analysing different data sources and find out what we can improve
+# Determine benifits of physical activeness of people 
 
 With this project we built an end-to-end orchestrated data pipeline.
 
