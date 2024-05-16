@@ -1,4 +1,4 @@
-# Determine benifits of physical activeness of people 
+# Determine benifits of physical activeness of people by analyzing data from data sources
 
 With this project we built an end-to-end orchestrated data pipeline.
 
